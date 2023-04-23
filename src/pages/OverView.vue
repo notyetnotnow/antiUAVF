@@ -45,7 +45,7 @@
 <script>
   import CommandFrame from '@/components/CommandFrame.vue';
   import EquipmentCard from '@/components/EquipmentCard.vue';
-  
+  import axios from 'axios';
   export default {
     components: { CommandFrame,EquipmentCard },
     name:'OverView',
@@ -108,14 +108,19 @@
         return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
       }
     },
+    mounted(){
+      axios.get('http://localhost:8080/selectCenters')
+      .then(response => {
+        this.$store.commit("updateCenterList",response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
     computed:{
       messagesCards: function(){
-        let list = this.$store.state.commandCenter[0].sitesInfo;
-
-        if(list.length>0){
-          return this.$store.state.commandCenter[0].sitesInfo[0].equipmentList;
-        }
-        return [];
+        console.log(this.$store.state.centerList[0].siteList[0].equipmentList);
+        return this.$store.state.centerList[0].siteList[0].equipmentList;
       }
     }
   }
