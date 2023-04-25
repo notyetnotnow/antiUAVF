@@ -1,7 +1,7 @@
 <template>
   <div> 
     <img src="../assets/58logo.jpg" @click="unfoldOrRetract">
-    <div class="initial-status" :class="[{'scroll-width1':isShow == 1},{'scroll-width2':isShow == 2},{'scroll-width3':isShow == 3},{'scroll-width4':isShow == 4}]">
+    <div class="initial-status" ref="divTransition">
       <div style="width:6rem;height:1rem">
         <div class="tab" @click='jumpto(ov.id)'>{{ ov.title }}</div>
         <div class="tab" @click='jumpto(rts.id)'>{{ rts.title }}</div>
@@ -29,25 +29,7 @@
     },
     methods:{
       unfoldOrRetract(){
-        if(this.isProcess){
-          return
-        }
-        if(!this.isUnfold){
-          this.isShow = 2;
-          this.isProcess = true;
-          setTimeout(() => {
-            this.isShow = 3;
-            this.isProcess = false;
-          },3000)
-        }else{
-          this.isShow = 4;
-          this.isProcess = true;
-          setTimeout(() => {
-            this.isShow = 1;
-            this.isProcess = false;
-          },3000)
-        }
-        this.isUnfold = !this.isUnfold
+        this.$refs.divTransition.classList.toggle("end-status");
       },
       jumpto(value){
         if(value === this.currentId) return
@@ -102,39 +84,19 @@
   .initial-status{
     overflow: hidden;
     float: left;
-  }
-  .scroll-width1{
     width: 0;
-    height: 0;
-    background-color: white;
+    height: 1rem;
+    transition-property: width;
+    transition-timing-function: ease-in-out;
+    transition-duration: 2s;
   }
-  .scroll-width2{
+  .end-status{
+    overflow: hidden;
+    float: left;
     width: 6rem;
     height: 1rem;
-    background-color: white;
-    position: relative;
-    animation: scroll-width2 3s infinite;
-    animation-iteration-count: 1;
-  }
-  @keyframes scroll-width2{
-    0% {width:0}
-    100% {width:6rem}
-  }
-  .scroll-width3{
-    width: 6rem;
-    height: 1rem;
-    background-color: white;
-  }
-  .scroll-width4{
-    width: 6rem;
-    height: 1rem;
-    background-color: white;
-    position: relative;
-    animation: scroll-width4 3s infinite;
-    animation-iteration-count: 1;
-  }
-  @keyframes scroll-width4{
-    0% {width:6rem}
-    100% {width:0}
+    transition-property: width;
+    transition-timing-function: ease-in-out;
+    transition-duration: 2s;
   }
 </style>
