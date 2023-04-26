@@ -5,22 +5,7 @@
         <span >站点信息</span>
       </div>
       <div>
-        <el-tree
-          class="tree-element"
-          :data="data"
-          node-key="id"
-          highlight-current
-          check-on-click-node
-          default-expand-all
-          @node-drag-start="handleDragStart"
-          @node-drag-enter="handleDragEnter"
-          @node-drag-leave="handleDragLeave"
-          @node-drag-over="handleDragOver"
-          @node-drag-end="handleDragEnd"
-          @node-drop="handleDrop"
-          :allow-drop="allowDrop"
-          :allow-drag="allowDrag">
-        </el-tree>
+        <tree-enhance></tree-enhance>
       </div>
     </div>
     <div class="exhibition-messages">
@@ -45,68 +30,19 @@
 <script>
   import CommandFrame from '@/components/CommandFrame.vue';
   import EquipmentCard from '@/components/EquipmentCard.vue';
+  import TreeEnhance from '@/components/TreeEnhance.vue';
   import axios from 'axios';
+  
   export default {
-    components: { CommandFrame,EquipmentCard },
+    components: { CommandFrame,EquipmentCard, TreeEnhance },
     name:'OverView',
     data(){
       return{
-        data:[
-          {id:1,label:"芙蓉汉城",
-            children:[
-              {id:101,label:"雷达"},
-              {id:102,label:"光电"},
-              {id:103,label:"干扰"},
-              {id:104,label:"测向"},
-              {id:105,label:"诱骗"}
-            ]
-          },
-          {id:2,label:"老龙山",
-            children:[
-              {id:201,label:"雷达"},
-              {id:202,label:"光电"},
-              {id:203,label:"干扰"},
-              {id:204,label:"测向"},
-              {id:205,label:"诱骗"}
-            ]
-          },
-        ],
-        defaultProps:{
-          children:'children',
-          label:'label'
-        },
-        showCard: false
+        
       }
     },
     methods:{
-      handleDragStart(node) {
-        console.log('drag start', node);
-      },
-      handleDragEnter(draggingNode, dropNode) {
-        console.log('tree drag enter: ', dropNode.label);
-      },
-      handleDragLeave(draggingNode, dropNode) {
-        console.log('tree drag leave: ', dropNode.label);
-      },
-      handleDragOver(draggingNode, dropNode) {
-        console.log('tree drag over: ', dropNode.label);
-      },
-      handleDragEnd(draggingNode, dropNode, dropType) {
-        console.log('tree drag end: ', dropNode && dropNode.label, dropType);
-      },
-      handleDrop(draggingNode, dropNode, dropType) {
-        console.log('tree drop: ', dropNode.label, dropType);
-      },
-      allowDrop(draggingNode, dropNode, type) {
-        if (dropNode.data.label === '二级 3-1') {
-          return type !== 'inner';
-        } else {
-          return true;
-        }
-      },
-      allowDrag(draggingNode) {
-        return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
-      }
+      
     },
     mounted(){
       axios.get('http://localhost:8080/selectCenters')
@@ -119,7 +55,6 @@
     },
     computed:{
       messagesCards: function(){
-        console.log(this.$store.state.centerList[0].siteList[0].equipmentList);
         return this.$store.state.centerList[0].siteList[0].equipmentList;
       }
     }
