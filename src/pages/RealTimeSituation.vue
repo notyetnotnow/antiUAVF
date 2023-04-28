@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mapbox">
+    <!-- <div class="mapbox">
       <el-amap ref="map" 
         map-style="amap://styles/62009be025f187dd3eafe327d2e55b8e" 
         :center="center" 
@@ -10,7 +10,7 @@
         @init="initMap" 
         @click="clickMap">
       </el-amap>
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -6,7 +6,7 @@ const state = {
   centerList:[
     {
       id: 1,
-      name: "本部",
+      name: "指挥中心",
       state: true,
       siteList:[
         {

@@ -1,6 +1,11 @@
 <template>
-  <div v-if="node">
-      {{node.name}}
+  <div v-if="node" >
+    <div class="node-tree" :style="{ 'padding-left': (node.level - 1) * 0.5 + 'rem' }">{{node.data.name}}</div>
+    <tree-node 
+      v-for = "child in node.childNodes"
+      :node="child"
+      :key="child.key">
+    </tree-node>
   </div>
 </template>
 

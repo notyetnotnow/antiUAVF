@@ -3,7 +3,8 @@
     <tree-node 
       v-for = "child in root.childNodes"
       :node="child"
-      :key="getNodeKey(child)"></tree-node>
+      :key="child.key">
+    </tree-node>
   </div>
 </template>
 
@@ -13,18 +14,29 @@
   export default {
     name:"TreeEnhance",
     components:{ TreeNode },
-    computed:{
-      data: function(){
-        return this.$store.state.centerList ? this.$store.state.centerList : null;
+    data(){
+      return{
+        root: null,
+        store: null,
       }
+    },
+    props:{
+      data: {
+        type: Array
+      },
+    },
+    computed:{
+      
     },
     methods:{
-      getNodeKey: function(child) {
-        return child.key;
-      }
+      
+    },
+    watch:{
+      data(newVal) {
+        this.store.setData(newVal);
+      },
     },
     created(){
-      console.log(this.data);
       this.store = new TreeStore({
         data: this.data,
       });
