@@ -1,5 +1,5 @@
 <template>
-  <div v-if="nodes" :style="{'padding-left': level * 0.4 + 'rem'}" :class="$style.tree-node">
+  <div v-if="nodes" :style="{'padding-left': level * 0.4 + 'rem'}" class="tree-node">
     <div v-for="node in nodes" :key="node.id">
       {{node.name}}
       <tree-node :nodes = "getListFrom(node)" :level="level+1"></tree-node>
@@ -33,7 +33,7 @@
   }
 </script>
 
-<style module>
+<style scoped>
   .tree-node{
     font-size: 0.5rem;
   }
