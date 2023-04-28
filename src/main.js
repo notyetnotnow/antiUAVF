@@ -10,6 +10,7 @@ Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({
   key: '5de6bcc9cba7e522c046e8445afedc8d',
 });
+
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 

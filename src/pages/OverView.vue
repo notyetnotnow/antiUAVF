@@ -5,7 +5,7 @@
         <span >站点信息</span>
       </div>
       <div>
-        <tree-enhance></tree-enhance>
+        <tree-enhance :data="treeData"></tree-enhance>
       </div>
     </div>
     <div class="exhibition-messages">
@@ -54,9 +54,13 @@
       })
     },
     computed:{
-      messagesCards: function(){
+      messagesCards(){
         return this.$store.state.centerList[0].siteList[0].equipmentList;
-      }
+      },
+      treeData(){
+        return this.$store.state.centerList;
+      },
+      
     }
   }
 </script>

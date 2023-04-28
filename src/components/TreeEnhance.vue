@@ -1,22 +1,51 @@
 <template>
   <div>
-    <tree-node :nodes="nodes" :level=0></tree-node>
+    <tree-node 
+      v-for = "child in root.childNodes"
+      :node="child"
+      :key="child.key">
+    </tree-node>
   </div>
 </template>
 
 <script>
   import TreeNode from "./TreeNode.vue"
+  import TreeStore from "./model/tree-store"
   export default {
     name:"TreeEnhance",
     components:{ TreeNode },
-    computed:{
-      nodes: function(){
-        return this.$store.state.centerList ? this.$store.state.centerList : null;
+    data(){
+      return{
+        root: null,
+        store: null,
       }
+    },
+    props:{
+      data: {
+        type: Array
+      },
+    },
+    computed:{
+      
+    },
+    methods:{
+      
+    },
+    watch:{
+      data(newVal) {
+        this.store.setData(newVal);
+      },
+    },
+    created(){
+      this.store = new TreeStore({
+        data: this.data,
+      });
+
+      this.root = this.store.root;
     }
   }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 
 </style>

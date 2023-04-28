@@ -1,13 +1,16 @@
 <template>
-  <div v-if="nodes" :style="{'padding-left': level * 0.4 + 'rem'}" class="tree-node">
-    <div v-for="node in nodes" :key="node.id">
-      {{node.name}}
-      <tree-node :nodes = "getListFrom(node)" :level="level+1"></tree-node>
-    </div>
+  <div v-if="node" >
+    <div class="node-tree" :style="{ 'padding-left': (node.level - 1) * 0.5 + 'rem' }">{{node.data.name}}</div>
+    <tree-node 
+      v-for = "child in node.childNodes"
+      :node="child"
+      :key="child.key">
+    </tree-node>
   </div>
 </template>
 
 <script>
+
   export default {
     name:"TreeNode",
     data(){
@@ -15,7 +18,7 @@
         
       }
     },
-    props:['nodes','level'],
+    props:['node'],
     computed:{
       
     },
@@ -30,15 +33,16 @@
         }
       }
     },
+    
   }
 </script>
 
 <style scoped>
-  .tree-node{
+  .node-tree{
     font-size: 0.5rem;
   }
-  .tree-node:hover{
-    cursor:pointer;
+  .node-tree:hover{
+    cursor: pointer;
     background-color: white;
   }
 </style>
