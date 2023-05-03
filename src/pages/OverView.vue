@@ -13,7 +13,7 @@
         <command-frame/>
       </div>
       <div class="equipment-messages">
-        <div class="title">老龙山</div>
+        <div class="title">{{$store.state.centerList[0].siteList[0].name}}</div>
         <ul>
           <li v-for="messagesCard in messagesCards" :key="messagesCard.id">
             <equipment-card class=""  :messagesCard="messagesCard" />
@@ -52,6 +52,10 @@
       .catch(error => {
         console.log(error);
       })
+      var source = new EventSource("http://localhost:8080/sse");
+      source.addEventListener("message", function(event) {
+        this.$store.commit("updateCenterList",JSON.parse(event.data));
+      }.bind(this));
     },
     computed:{
       messagesCards(){
@@ -61,6 +65,9 @@
         return this.$store.state.centerList;
       },
       
+    },
+    watch: {
+
     }
   }
 </script>
