@@ -5,6 +5,11 @@
         <sw-scroll :getCurrentTitle='getCurrentTitle'/>
         <div class="title-head">{{currentTitle}}</div>
       </div>
+      <div class="user" @click="">
+        <svg class="svg">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user-off"></use>
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -53,5 +58,15 @@
   .flex-center{
     display: flex;
     justify-content: center;
+  }
+  .user{
+    position: absolute;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+  .svg{
+    width: 1rem;
+    height: 1rem;
   }
 </style>
