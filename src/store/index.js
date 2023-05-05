@@ -20,6 +20,7 @@ const state = {
       ],
     }
   ],
+  currentSiteId:1,
     
 }
 
@@ -30,7 +31,15 @@ const actions = {
 const mutations = {
   updateCenterList(state, payload){
     state.centerList = payload;
-  }
+    state.centerList.forEach(center => {
+      center.siteList.forEach(site => {
+        site.equipmentList.sort((a,b) => a.type - b.type);
+      })
+    });
+  },
+  updateCurrentSiteId(state, payload){
+    state.currentSiteId = payload;
+  },
 }
 
 export default new Vuex.Store({

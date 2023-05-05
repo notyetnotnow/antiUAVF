@@ -13,7 +13,7 @@
           </g>
         </g>
         <template v-for="(item,index) in siteList">
-          <g :transform="'translate('+102.4*index+',111.2)'" :key="item.id">
+          <g :transform="'translate('+102.4*index+',111.2)'" :key="item.id" @click="updateCurrentSiteId(item.id)">
             <g transform="scale(0.2,0.2)">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#site-off"></use>
             </g>
@@ -75,6 +75,11 @@
       },
       siteList(){
         return this.$store.state.centerList[0].siteList
+      }
+    },
+    methods:{
+      updateCurrentSiteId(id){
+        this.$store.commit("updateCurrentSiteId",id);
       }
     }
   }

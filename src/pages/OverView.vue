@@ -13,7 +13,7 @@
         <command-frame/>
       </div>
       <div class="equipment-messages">
-        <div class="title">{{$store.state.centerList[0].siteList[0].name}}</div>
+        <div class="title">{{equipmentCardName}}</div>
         <ul>
           <li v-for="messagesCard in messagesCards" :key="messagesCard.id">
             <equipment-card class=""  :messagesCard="messagesCard" />
@@ -59,7 +59,20 @@
     },
     computed:{
       messagesCards(){
+        const equipmentList = this.$store.state.centerList[0].siteList.find(item => item.id === this.$store.state.currentSiteId)?.equipmentList;
+        if (equipmentList) {
+          //排序放到了store里面
+          // equipmentList.sort((a,b) => a.type - b.type);
+          return equipmentList;
+        }
         return this.$store.state.centerList[0].siteList[0].equipmentList;
+      },
+      equipmentCardName(){
+        const name = this.$store.state.centerList[0].siteList.find(item => item.id === this.$store.state.currentSiteId)?.name;
+        if (name) {
+          return name;
+        }
+        return this.$store.state.centerList[0].siteList[0].name;
       },
       treeData(){
         return this.$store.state.centerList;

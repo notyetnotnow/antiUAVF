@@ -32,7 +32,7 @@ export default class TreeNode {
     this.parent = null;
     this.visible = true;
     this.isCurrent = false;
-    
+    this.showUpdateMenu = false;
     for (let name in options) {
       if(Object.prototype.hasOwnProperty.call(options, name)){
         this[name] = options[name];
