@@ -31,7 +31,6 @@
   import CommandFrame from '@/components/CommandFrame.vue';
   import EquipmentCard from '@/components/EquipmentCard.vue';
   import TreeEnhance from '@/components/TreeEnhance.vue';
-  import axios from 'axios';
   
   export default {
     components: { CommandFrame,EquipmentCard, TreeEnhance },
@@ -45,7 +44,7 @@
       
     },
     mounted(){
-      axios.get('http://localhost:8080/selectCenters')
+      this.$axios.get('http://localhost:8080/selectCenters')
       .then(response => {
         this.$store.commit("updateCenterList",response.data);
       })

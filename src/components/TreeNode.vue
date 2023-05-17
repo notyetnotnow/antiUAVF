@@ -88,7 +88,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import {addClass, removeClass} from "./model/dom"
     
   export default {
@@ -114,7 +113,9 @@
       },
     },
     computed: {
-
+      isAdmin(){
+        return this.$store.state.userInfo.role == "admin";
+      }
     },
     methods:{
       beforeEnter(el){
@@ -191,6 +192,9 @@
         // 阻止默认右键菜单
         event.preventDefault();
         
+        if(!this.isAdmin){
+          return;
+        }
         // 计算弹窗位置
         this.popupTop = event.pageY;
         this.popupLeft = event.pageX;
@@ -204,6 +208,9 @@
         this.showMenu = false;
       },
       showInsert(event) {
+        if(!this.isAdmin){
+          return;
+        }
         // 计算弹窗位置
         this.popupTop = event.pageY;
         this.popupLeft = event.pageX;
@@ -217,6 +224,9 @@
         this.showInsertMenu = false;
       },
       showUpdate(event) {
+        if(!this.isAdmin){
+          return;
+        }
         // 计算弹窗位置
         this.popupTop = event.pageY;
         this.popupLeft = event.pageX;
@@ -246,7 +256,7 @@
       deleteNode(){
         let level = this.node.level;
         let id = this.node.data.id;
-        axios.get(`http://localhost:8080/deleteByLevelAndId?level=${level}&id=${id}`)
+        this.$axios.get(`http://localhost:8080/deleteByLevelAndId?level=${level}&id=${id}`)
         .then(response => {
           console.log(response.data);
         })
@@ -260,7 +270,7 @@
           let state = this.$refs.siteState.value;
           let belong = this.node.data.id;
           this.hideInsert();
-          axios.get(`http://localhost:8080/insertSite?name=${name}&state=${state}&belong=${belong}`)
+          this.$axios.get(`http://localhost:8080/insertSite?name=${name}&state=${state}&belong=${belong}`)
           .then(response => {
             console.log(response.data);
           })
@@ -300,7 +310,7 @@
             type = 0;
           }
           this.hideInsert();
-          axios.get(`http://localhost:8080/insertEquipment?name=${name}&state=${state}&belong=${belong}&longitude=${longitude}&latitude=${latitude}&elevation=${elevation}&ip=${ip}&type=${type}`)
+          this.$axios.get(`http://localhost:8080/insertEquipment?name=${name}&state=${state}&belong=${belong}&longitude=${longitude}&latitude=${latitude}&elevation=${elevation}&ip=${ip}&type=${type}`)
           .then(response => {
             console.log(response.data);
           })
@@ -315,7 +325,7 @@
           let state = this.$refs.centerStateU.value;
           let id = this.node.data.id;
           this.hideUpdate();
-          axios.get(`http://localhost:8080/updateCenter?name=${name}&state=${state}&id=${id}`)
+          this.$axios.get(`http://localhost:8080/updateCenter?name=${name}&state=${state}&id=${id}`)
           .then(response => {
             console.log(response.data);
           })
@@ -328,7 +338,7 @@
           let state = this.$refs.siteStateU.value;
           let id = this.node.data.id;
           this.hideUpdate();
-          axios.get(`http://localhost:8080/updateSite?name=${name}&state=${state}&id=${id}`)
+          this.$axios.get(`http://localhost:8080/updateSite?name=${name}&state=${state}&id=${id}`)
           .then(response => {
             console.log(response.data);
           })
@@ -368,7 +378,7 @@
             type = 0;
           }
           this.hideUpdate();
-          axios.get(`http://localhost:8080/updateEquipment?name=${name}&state=${state}&id=${id}&longitude=${longitude}&latitude=${latitude}&elevation=${elevation}&ip=${ip}&type=${type}`)
+          this.$axios.get(`http://localhost:8080/updateEquipment?name=${name}&state=${state}&id=${id}&longitude=${longitude}&latitude=${latitude}&elevation=${elevation}&ip=${ip}&type=${type}`)
           .then(response => {
             console.log(response.data);
           })

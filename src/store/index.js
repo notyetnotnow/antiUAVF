@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex"; 
 Vue.use(Vuex);
 const state = {
-  userInfo:{},
+  userInfo:{name:'guest',role:"user"},
   centerList:[
     {
       id: 1,
@@ -40,6 +40,9 @@ const mutations = {
   updateCurrentSiteId(state, payload){
     state.currentSiteId = payload;
   },
+  updateUser(state, payload){
+    state.userInfo = payload;
+  }
 }
 
 export default new Vuex.Store({
